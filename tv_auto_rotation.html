@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="refresh" content="3600"> <!-- optional hard reload every hour -->
+    <title>Auto-Rotate Google Sheets</title>
+    <style> html, body { margin: 0; height: 100%; overflow: hidden; } iframe { width: 100%; height: 100%; border: none; } </style>
+  </head>
+  <body>
+    <iframe id="sheetFrame"></iframe>
+    <script>
+      const sheetUrls = [
+        "https://docs.google.com/spreadsheets/d/1THvOb7oREQS2Ozl_lxyvMp1JU2GJkFyewQ9hL7fh1ds/edit?gid=986928187#gid=986928187",
+        "https://docs.google.com/spreadsheets/d/1THvOb7oREQS2Ozl_lxyvMp1JU2GJkFyewQ9hL7fh1ds/edit?gid=151212752#gid=151212752",
+        "https://docs.google.com/spreadsheets/d/1THvOb7oREQS2Ozl_lxyvMp1JU2GJkFyewQ9hL7fh1ds/edit?gid=1406382665#gid=1406382665",
+        "https://docs.google.com/spreadsheets/d/1THvOb7oREQS2Ozl_lxyvMp1JU2GJkFyewQ9hL7fh1ds/edit?gid=138155433#gid=138155433",
+        "https://docs.google.com/spreadsheets/d/1THvOb7oREQS2Ozl_lxyvMp1JU2GJkFyewQ9hL7fh1ds/edit?gid=1751767539#gid=1751767539"
+      ];
+      let index = 0;
+      const frame = document.getElementById("sheetFrame");
+
+      function showNextSheet() {
+        frame.src = sheetUrls[index];
+        index = (index + 1) % sheetUrls.length;
+      }
+
+      showNextSheet(); // initial load
+      setInterval(showNextSheet, 30000); // rotate every 30 seconds
+    </script>
+  </body>
+</html>
