@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="refresh" content="600"> <!-- optional hard reload every hour -->
+    <meta http-equiv="refresh" content="900"> <!-- optional hard reload every 15 minutes -->
     <title>Auto-Rotate Google Sheets</title>
     <style> html, body { margin: 0; height: 100%; overflow: hidden; } iframe { width: 100%; height: 100%; border: none; } </style>
   </head>
@@ -24,7 +24,7 @@
       }
 
       showNextSheet(); // initial load
-      setInterval(showNextSheet, 60000); // rotate every 30 seconds
+      setInterval(showNextSheet, 120000); // rotate every 2 minutes
     </script>
   </body>
 </html>
