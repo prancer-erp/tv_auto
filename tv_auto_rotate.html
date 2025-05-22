@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Google Sheets Rotator</title>
+    <meta http-equiv="refresh" content="600"> <!-- Hard refresh every 10 mins -->
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        background: #000;
+        zoom: 1.25; /* Adjust this value for zoom */
+      }
+      .sheetFrame {
+        width: 100%;
+        height: 100%;
+        border: none;
+        display: none;
+      }
+      .sheetFrame:first-child {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="sheetContainer">
+      <iframe class="sheetFrame" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRaUDID_SUEC3GwNt5bqCFlwMd2aGeYroFYl3V0pN4pdeVHaLdhCUWZQKXgotQQ7TJ3qhpu_jkzNhUh/pubhtml?gid=986928187&single=true&widget=true&headers=false"></iframe>
+      <iframe class="sheetFrame" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRaUDID_SUEC3GwNt5bqCFlwMd2aGeYroFYl3V0pN4pdeVHaLdhCUWZQKXgotQQ7TJ3qhpu_jkzNhUh/pubhtml?gid=151212752&single=true&widget=true&headers=false"></iframe>
+      <iframe class="sheetFrame" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRaUDID_SUEC3GwNt5bqCFlwMd2aGeYroFYl3V0pN4pdeVHaLdhCUWZQKXgotQQ7TJ3qhpu_jkzNhUh/pubhtml?gid=1406382665&single=true&widget=true&headers=false"></iframe>
+      <iframe class="sheetFrame" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRaUDID_SUEC3GwNt5bqCFlwMd2aGeYroFYl3V0pN4pdeVHaLdhCUWZQKXgotQQ7TJ3qhpu_jkzNhUh/pubhtml?gid=138155433&single=true&widget=true&headers=false"></iframe>
+      <iframe class="sheetFrame" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRaUDID_SUEC3GwNt5bqCFlwMd2aGeYroFYl3V0pN4pdeVHaLdhCUWZQKXgotQQ7TJ3qhpu_jkzNhUh/pubhtml?gid=1751767539&single=true&widget=true&headers=false"></iframe>
+    </div>
+
+    <script>
+      const frames = document.querySelectorAll('.sheetFrame');
+      let index = 0;
+
+      function rotateSheets() {
+        frames.forEach((frame, i) => {
+          frame.style.display = (i === index) ? 'block' : 'none';
+        });
+        index = (index + 1) % frames.length;
+      }
+
+      rotateSheets(); // Show the first sheet
+      setInterval(rotateSheets, 30000); // Switch every 30 seconds
+    </script>
+  </body>
+</html>
