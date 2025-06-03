@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Google Sheet TV Display</title>
+    <style>
+      html, body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe id="sheetFrame"></iframe>
+    <script>
+      const sheetUrl = "https://docs.google.com/spreadsheets/d/1THvOb7oREQS2Ozl_lxyvMp1JU2GJkFyewQ9hL7fh1ds/edit?pli=1&gid=814380314#gid=814380314";
+      const frame = document.getElementById("sheetFrame");
+
+      // Function to reload only the iframe
+      function reloadIframe() {
+        frame.src = sheetUrl + "&timestamp=" + new Date().getTime(); // bypass cache
+      }
+
+      // Function to force a full page reload (fallback reset)
+      function reloadFullPage() {
+        location.reload(true); // true forces a full reload (ignore cache)
+      }
+
+      // Initial iframe load
+      reloadIframe();
+
+      // Refresh iframe every 2 minutes (120000 ms)
+      setInterval(reloadIframe, 120000);
+
+      // Full page reload every 60 minutes (3600000 ms)
+      setInterval(reloadFullPage, 3600000);
+    </script>
+  </body>
+</html>
