@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Google Sheet Rotator</title>
+    <style>
+      html, body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe id="sheetFrame"></iframe>
+
+    <script>
+      const sheetLinks = [
+        "https://docs.google.com/spreadsheets/d/1THvOb7oREQS2Ozl_lxyvMp1JU2GJkFyewQ9hL7fh1ds/edit?pli=1&gid=1962805342#gid=1962805342",
+        "https://docs.google.com/spreadsheets/d/1THvOb7oREQS2Ozl_lxyvMp1JU2GJkFyewQ9hL7fh1ds/edit?pli=1&gid=1868121160#gid=1868121160"
+      ];
+
+      const frame = document.getElementById("sheetFrame");
+      let currentIndex = 0;
+
+      function rotateAndLoadSheet() {
+        const url = sheetLinks[currentIndex] + "&timestamp=" + new Date().getTime(); // bypass cache
+        frame.src = url;
+        currentIndex = (currentIndex + 1) % sheetLinks.length; // prepare next index
+      }
+
+      // Initial load
+      rotateAndLoadSheet();
+
+      // Rotate and load new sheet every 5 minutes (300,000 ms)
+      setInterval(rotateAndLoadSheet, 300000);
+
+      // Full page reload every 1 hour (3,600,000 ms)
+      setInterval(() => location.reload(true), 3600000);
+    </script>
+  </body>
+</html>
