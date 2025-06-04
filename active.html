@@ -1,46 +1,54 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Google Sheet Rotator</title>
-    <style>
-      html, body {
-        margin: 0;
-        height: 100%;
-        overflow: hidden;
-      }
-      iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
-      }
-    </style>
-  </head>
-  <body>
-    <iframe id="sheetFrame"></iframe>
+<head>
+  <title>Rotating Sheets Display</title>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <iframe id="sheetFrame"></iframe>
 
-    <script>
-      const sheetLinks = [
-        "https://docs.google.com/spreadsheets/d/1THvOb7oREQS2Ozl_lxyvMp1JU2GJkFyewQ9hL7fh1ds/edit?pli=1&gid=1962805342#gid=1962805342",
-        "https://docs.google.com/spreadsheets/d/1THvOb7oREQS2Ozl_lxyvMp1JU2GJkFyewQ9hL7fh1ds/edit?pli=1&gid=1868121160#gid=1868121160"
-      ];
+  <script>
+    const sheetUrls = [
+      "https://docs.google.com/spreadsheets/d/1THvOb7oREQS2Ozl_lxyvMp1JU2GJkFyewQ9hL7fh1ds/edit?pli=1&gid=1962805342#gid=1962805342", // Page 1
+      "https://docs.google.com/spreadsheets/d/1THvOb7oREQS2Ozl_lxyvMp1JU2GJkFyewQ9hL7fh1ds/edit?pli=1&gid=1868121160#gid=1868121160", // Page 2
+      "https://docs.google.com/spreadsheets/d/1THvOb7oREQS2Ozl_lxyvMp1JU2GJkFyewQ9hL7fh1ds/edit?pli=1&gid=1960355827#gid=1960355827"  // Page 3
+    ];
 
-      const frame = document.getElementById("sheetFrame");
-      let currentIndex = 0;
+    const durations = [
+      5 * 60 * 1000, // 5 minutes for page 1
+      5 * 60 * 1000, // 5 minutes for page 2
+      3 * 60 * 1000  // 3 minutes for page 3
+    ];
 
-      function rotateAndLoadSheet() {
-        const url = sheetLinks[currentIndex] + "&timestamp=" + new Date().getTime(); // bypass cache
-        frame.src = url;
-        currentIndex = (currentIndex + 1) % sheetLinks.length; // prepare next index
-      }
+    let currentIndex = 0;
+    const frame = document.getElementById("sheetFrame");
 
-      // Initial load
-      rotateAndLoadSheet();
+    function loadNextSheet() {
+      const timestamp = new Date().getTime(); // to bypass cache
+      frame.src = sheetUrls[currentIndex] + "&ts=" + timestamp;
 
-      // Rotate and load new sheet every 5 minutes (300,000 ms)
-      setInterval(rotateAndLoadSheet, 300000);
+      const delay = durations[currentIndex];
+      currentIndex = (currentIndex + 1) % sheetUrls.length;
 
-      // Full page reload every 1 hour (3,600,000 ms)
-      setInterval(() => location.reload(true), 3600000);
-    </script>
-  </body>
+      setTimeout(loadNextSheet, delay);
+    }
+
+    // Start rotation
+    loadNextSheet();
+
+    // Optional: reload full page every 1 hour as fallback
+    setInterval(() => location.reload(true), 60 * 60 * 1000);
+  </script>
+</body>
 </html>
